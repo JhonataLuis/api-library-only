@@ -1,15 +1,18 @@
-package src;
+package cursojava.classes;
 
-public class Pessoa {
+/*HERANÇA - CLASSE PAI OU CLASSE MASTER OU SUPERCLASEE - (ATRIBUTOS COMUMNS A TODOS OS OBJETOS FILHOS)*/
+public abstract class Pessoa {
 
-	private String nome;
-	private int idade;
-	private String dataNascimento;
-	private String registroGeral;
-	private String numeroCpf;
-	private String nomeMae;
-	private String nomePai;
+	protected String nome;
+	protected int idade;
+	protected String dataNascimento;
+	protected String registroGeral;
+	protected String numeroCpf;
+	protected String nomeMae;
+	protected String nomePai;
 	
+	/*MÉTODO ABSTRATO É QUE FICA NA CLASSE PAI É OBRIGATORIO PARA AS CLASSES FILHAS*/
+	public abstract double salario();
 	
 	public String getNome() {
 		return nome;
@@ -54,5 +57,8 @@ public class Pessoa {
 		this.nomePai = nomePai;
 	}
 	
-	
+	/*RETORNA TRUE CASO SEJA 18 PRA CIMA SENÃO FALSE*/
+	public boolean pessoaMaiorIdade() {
+		return idade >= 18;
+	}
 }

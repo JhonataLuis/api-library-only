@@ -1,4 +1,4 @@
-package src;
+package cursojava.classes;
 
 public class SegundaClasse {
 

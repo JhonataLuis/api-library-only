@@ -1,4 +1,4 @@
-package src;
+package cursojava.classes;
 
 import javax.swing.JOptionPane;
 

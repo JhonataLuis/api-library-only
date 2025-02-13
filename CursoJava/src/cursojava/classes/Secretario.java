@@ -1,4 +1,4 @@
-package src;
+package cursojava.classes;
 
 public class Secretario extends Pessoa{
 
@@ -24,6 +24,17 @@ public class Secretario extends Pessoa{
 	}
 	public void setExperiencia(String experiencia) {
 		this.experiencia = experiencia;
+	}
+	@Override
+	public String toString() {
+		return "Secretario [registro=" + registro + ", nivelCargo=" + nivelCargo + ", experiencia=" + experiencia
+				+ ", nome=" + nome + ", idade=" + idade + ", dataNascimento=" + dataNascimento + ", registroGeral="
+				+ registroGeral + ", numeroCpf=" + numeroCpf + ", nomeMae=" + nomeMae + ", nomePai=" + nomePai + "]";
+	}
+	@Override
+	public double salario() {
+		
+		return 1800.80 * 0.9;
 	}
 	
 	
