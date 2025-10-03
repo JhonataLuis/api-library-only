@@ -1,5 +1,7 @@
 package com.bmt.library_only.model;
 
+import jakarta.persistence.Entity;
+
 @Entity
 public class Usuario {
 
