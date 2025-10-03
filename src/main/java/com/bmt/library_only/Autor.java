@@ -1,10 +1,15 @@
 package com.bmt.library_only;
 
 
+import java.util.List;
+
+import com.bmt.library_only.model.Livro;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -18,6 +23,10 @@ public class Autor {
     private Long id;
     private String nome;
     private String nacionalidade;
+
+    // Relacionamento N:N com Livro
+    @ManyToMany(mappedBy = "autores")
+    private List<Livro> livros;
 
     public void setId(Long id) {
         this.id = id;
@@ -41,6 +50,14 @@ public class Autor {
 
     public String getNacionalidade() {
         return nacionalidade;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
+    }
+
+    public List<Livro> getLivros() {
+        return livros;
     }
 }
 
