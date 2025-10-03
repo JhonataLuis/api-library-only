@@ -1,10 +1,16 @@
 package com.bmt.library_only.model;
 
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,9 +22,18 @@ public class Usuario {
     @SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1)
     private Long id;
 
+    @Column(nullable = false, length=100)
     private String nome;
+
+    @Column(nullable = false, length=100, unique=true)
     private String email;
+
+    @Column(length=20)
     private String telefone;
+
+    // Relacionamento 1:N com Emprestimo
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Emprestimo> emprestimos;
 
     public void setId(Long id) {
         this.id = id;
@@ -52,5 +67,12 @@ public class Usuario {
         return telefone;
     }
 
+    public void setEmprestimos(List<Emprestimo> emprestimos) {
+        this.emprestimos = emprestimos;
+    }
+
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
+    }
 
 }
