@@ -6,5 +6,7 @@ import com.bmt.library_only.model.Usuario;
 
 public interface UserService {
 
-    List<Usuario> getAllUsers();
+    Usuario saveUser(Usuario user); // Método para salvar um usuário
+
+    List<Usuario> getAllUsers(); // Método para obter todos os usuários
 }
