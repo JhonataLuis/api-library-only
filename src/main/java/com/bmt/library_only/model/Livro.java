@@ -1,9 +1,18 @@
 package com.bmt.library_only.model;
 
+import java.util.List;
+
+import com.bmt.library_only.Autor;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -20,6 +29,19 @@ public class Livro {
     private Integer anoPublicacao;
     private Integer quantidadeTotal;
     private Integer quantidadeDisponivel;
+
+    // Relacionamento 1:N com Emprestimo
+    @OneToMany(mappedBy = "livro", cascade=CascadeType.ALL, orphanRemoval = true)
+    private List<Emprestimo> emprestimos;
+
+    // Relacionamento N:N com Autor via tabela intermediaria livro_autor
+    @ManyToMany
+    @JoinTable(
+        name = "livro_autor",
+        joinColumns = @JoinColumn(name = "livro_id"),
+        inverseJoinColumns = @JoinColumn(name = "autor_id")
+    )
+    private List<Autor> autores;
 
     public void setId(Long id) {
         this.id = id;
@@ -69,5 +91,20 @@ public class Livro {
         return quantidadeDisponivel;
     }
 
+    public void setEmprestimos(List<Emprestimo> emprestimos) {
+        this.emprestimos = emprestimos;
+    }
+
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setAutores(List<Autor> autores) {
+        this.autores = autores;
+    }
+
+    public List<Autor> getAutores() {
+        return autores;
+    }
 
 }
