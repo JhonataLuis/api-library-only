@@ -5,6 +5,7 @@ import java.util.List;
 import com.bmt.library_only.Autor;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,8 +25,13 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "livro_seq")
     @SequenceGenerator(name = "livro_seq", sequenceName = "livro_seq", allocationSize = 1)
     private Long id;
+
+    @Column(nullable = false, length=200)
     private String titulo;
+
+    @Column(nullable = false, length=20, unique=true)
     private String isbn;
+
     private Integer anoPublicacao;
     private Integer quantidadeTotal;
     private Integer quantidadeDisponivel;
