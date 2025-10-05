@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
-function UsuarioForm() {
+function UsuarioForm({ onUsuarioCadastrado }) {
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [telefone, setTelefone] = useState("");
     const [mensagem, setMensagem] = useState("");
 
     const testarConexao = async () => {
+
         try {
             const response = await fetch("/api/users/test");
             if (response.ok) {
@@ -39,10 +40,12 @@ function UsuarioForm() {
                 setNome("");
                 setEmail("");
                 setTelefone("");
+                onUsuarioCadastrado(); // Notifica o componente pai / Atualiza a lista
             } else {
                 setMensagem("❌ Erro ao cadastrar usuário");
             }
         } catch (error) {
+            console.error("Erro na requisição:", error);
             setMensagem("❌ Falha na conexão com o servidor");
         }
     };
