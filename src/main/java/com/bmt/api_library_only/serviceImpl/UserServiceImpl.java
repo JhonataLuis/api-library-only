@@ -43,4 +43,32 @@ public class UserServiceImpl implements UserService {
         logger.info("Salvando um novo usuário no banco de dados");
         return userRepository.save(user);
     }
+
+    /**
+     * Método para atualizar um usuário existente
+     * @return Usuario atualizado
+     */
+    @Override
+    public Usuario updateUser(Long id, Usuario user) {
+        logger.info("Atualizando o usuário com ID: {}", id);
+        return userRepository.findById(id).map(existingUser -> {
+            existingUser.setNome(user.getNome());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setTelefone(user.getTelefone());
+            return userRepository.save(existingUser);
+        }).orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
+    }
+
+    /**
+     * Método para deletar um usuário existente
+     * @return Usuario deletado
+     */
+    @Override
+    public Usuario deleteUser(Long id) {
+        logger.info("Deletando o usuário com ID: {}", id);
+        return userRepository.findById(id).map(user -> {
+            userRepository.delete(user);
+            return user;
+        }).orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
+    }
 }
