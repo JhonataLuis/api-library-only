@@ -10,7 +10,7 @@ public interface AutorService {
 
     List<Autor> getAllAutors(); // Método para obter todos os autores
 
-    Autor updateAutor(Long id, Autor autor); // Método para atualizar um autor
+    //Autor updateAutor(Long id, Autor autor); // Método para atualizar um autor
 
-    Autor deleteAutor(Long id); // Método para deletar um autor
+    //Autor deleteAutor(Long id); // Método para deletar um autor
 }
