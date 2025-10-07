@@ -67,15 +67,22 @@ public class UserController {
             return ResponseEntity.ok(updatedUser);
         } catch (Exception e) {
             logger.error("Erro ao atualizar usuário: {}", e.getMessage());
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build(); // Retorna 404 Not Found se o usuário não for encontrado
         }
     }
 
+    // Método para deletar um usuário implementado com tratamento de exceção
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        logger.info("Recebendo requisição para deletar usuário com ID: {}", id);
-        // Implementar lógica de deleção aqui
-        return ResponseEntity.noContent().build();
+       try{
+            logger.info("Recebendo requisição para deletar usuário com ID: {}", id);
+            userService.deleteUser(id);
+            logger.info("Usuário com ID: {} deletado com sucesso", id);
+            return ResponseEntity.noContent().build(); // Retorna 204 No Content
+       } catch (RuntimeException e) {
+            logger.error("Erro ao deletar usuário com ID: {}", id, e.getMessage());
+            return ResponseEntity.notFound().build(); // Retorna 404 Not Found
+       }
     }
 
 }
