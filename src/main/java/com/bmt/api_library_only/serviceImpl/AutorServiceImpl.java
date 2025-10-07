@@ -21,12 +21,21 @@ public class AutorServiceImpl implements AutorService{
         this.autorRepository = autorRepository;
     }
 
+    /**
+     * Método para obter todos os autores
+     * @return Lista de autores
+     */
     @Override
     public List<Autor> getAllAutors() {
         logger.info("Obtendo todos os autores do banco de dados");
-        return autorRepository.findAll();
+        List<Autor> autores = autorRepository.findAll();
+        return autores; // Retornar a lista de autores
     }
 
+    /**
+     * Método para salvar um autor
+     * @return Autor salvo
+     */
     @Override
     public Autor saveAutor(Autor autor) {
         logger.info("Salvando um novo autor no banco de dados");
