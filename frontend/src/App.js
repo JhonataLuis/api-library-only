@@ -1,29 +1,25 @@
-//import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { useRef } from 'react';
-import UsuarioForm from './components/UsuarioForm';
-import UsuarioList from './components/UsuarioList';
-import MenuPrincipal from './components/MenuPrincipal';
-import Breadcrumb from './components/BreadCrumb';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MenuPrincipal from './components/MenuPrincipal/MenuPrincipal';
+import Breadcrumb from './components/BreadCrumb/BreadCrumb';
 
 import './App.css';
 
 // Páginas (futuro) precisará criar estas compnentes
-import Home from './pages/Home';
-import Livros from './pages/Livros';
+import Home from './components/Home/Home';
+import Usuarios from './components/Usuario/Usuarios';
+/*import Livros from './pages/Livros';
 import Autores from './pages/Autores';
 import Usuarios from './pages/Usuarios';
-import Emprestimos from './pages/Emprestimos';
+import Emprestimos from './pages/Emprestimos';*/
+
+// Componentes temporários
+const Livros = () => <div className="container mt-4"><h2>Página de Livros</h2></div>;
+const Autores = () => <div className="container mt-4"><h2>Página de Autores</h2></div>;
+const Emprestimos = () => <div className="container mt-4"><h2>Página de Empréstimos</h2></div>;
 
 function App() {
-    const listRef = useRef(null);
-
-    const autalizarLista = () => {
-        if(listRef.current) {
-    listRef.current.carregarUsuarios();
-    }   
- };
-
+   
   return (
     <div className="App">
       <Router>
@@ -55,11 +51,7 @@ function App() {
       </div>
     </Router>
 
-      <header className="App-header">
-        <h1>Sistema Biblioteca</h1>
-        <UsuarioForm onUsuarioCadastrado={autalizarLista}/>
-        <UsuarioList ref={listRef} />
-      </header>
+      
     </div>
   );
 }
