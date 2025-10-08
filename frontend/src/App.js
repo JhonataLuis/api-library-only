@@ -2,6 +2,9 @@ import React, { useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MenuPrincipal from './components/MenuPrincipal/MenuPrincipal';
 import Breadcrumb from './components/BreadCrumb/BreadCrumb';
+import AutorListPage from './pages/Autor/AutorListPage';
+import AutorCreatePage from './pages/Autor/AutorCreatePage';
+import AutorEditPage from './pages/Autor/AutorEditPage';
 
 import './App.css';
 
@@ -34,7 +37,9 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/livros" element={<Livros />} />
               <Route path="/livros/novo" element={<div>Novo Livro</div>} />
-              <Route path="/autores" element={<Autores />} />
+              <Route path="/autores" element={<AutorListPage />} />
+              <Route path="/autores/novo" element={<AutorCreatePage />} />
+              <Route path="/autores/editar/:id" element={<AutorEditPage />} />
               <Route path="/usuarios" element={<Usuarios />} />
               <Route path="/emprestimos" element={<Emprestimos />} />
               

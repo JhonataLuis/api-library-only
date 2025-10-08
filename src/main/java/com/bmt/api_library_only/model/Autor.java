@@ -20,7 +20,10 @@ public class Autor {
     @SequenceGenerator(name = "autor_seq", sequenceName = "autor_seq", allocationSize = 1)
     private Long id;
     private String nome;
+    private String email;
+    private String telefone;
     private String nacionalidade;
+    private String biografia;
 
     // Relacionamento N:N com Livro
     @ManyToMany(mappedBy = "autores")
@@ -42,12 +45,36 @@ public class Autor {
         return nome;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
     public void setNacionalidade(String nacionalidade) {
         this.nacionalidade = nacionalidade;
     }
 
     public String getNacionalidade() {
         return nacionalidade;
+    }
+
+    public void setBiografia(String biografia) {
+        this.biografia = biografia;
+    }
+
+    public String getBiografia() {
+        return biografia;
     }
 
     public void setLivros(List<Livro> livros) {

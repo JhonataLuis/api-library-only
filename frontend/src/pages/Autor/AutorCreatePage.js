@@ -5,8 +5,9 @@ import AutorForm from '../../components/Autor/AutorForm';
 const AutorCreatePage = () => {
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = (autorSalvo) => {
         // Redireciona de volta para a lista após criar
+        console.log('📝 Autor criado, redirecionando...', autorSalvo);
         navigate('/autores');
     };
 

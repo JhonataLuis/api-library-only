@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { autorService } from '../../services/autorService';
+import autorService from '../../services/autorService';
 
 const AutorForm = ({ autor, onSubmit, onCancel, modo = 'criar' }) => {
 const [formData, setFormData] = useState({
     nome: '',
     email: '',
     telefone: '',
-    bio: '',
-    nacionalidade: ''
+    nacionalidade: '',
+    biografia: ''
 });
 
 const [erro, setErro] = useState('');
@@ -15,7 +15,13 @@ const [enviando, setEnviando] = useState(false);
 
 useEffect(() => {
     if (autor) {
-        setFormData(autor);
+        setFormData({
+            nome: autor.nome || '',
+            email: autor.email || '',
+            telefone: autor.telefone || '',
+            nacionalidade: autor.nacionalidade || '',
+            biografia: autor.biografia || ''
+        });
     }
 }, [autor]);
 
@@ -33,13 +39,23 @@ const handleChange = (e) => {
         setErro('');
 
         try {
+            
+            console.log('📤 Enviando dados:', formData);
+            console.log('🎯 Modo:', modo);
+            console.log('✏️ Autor sendo editado:', autor);
+
             let resultado;
-            if (modo === 'update' && autor?.id) {
+            if (modo ===  'editar' && autor?.id) {
+                 console.log('🔄 Modo edição - ID:', autor.id);
+                // Modo edição: chama o método atualizar
                 resultado = await autorService.atualizar(autor.id, formData);
             } else {
-                resultado = await autorService.atualizar(autor.id, formData);
+                 console.log('🆕 Modo criação');
+                // Modo criação: chama o método criar
+                resultado = await autorService.criar(formData);
             }
-            onSubmit(resultado);
+             console.log('✅ Resultado do serviço:', resultado);
+             onSubmit(resultado);
     } catch (error) {
             setErro(error.message || 'Erro ao enviar formulário');
         } finally {
@@ -106,20 +122,7 @@ const handleChange = (e) => {
                     </div>
                 </div>
                 
-                <div className="col-md-6">
-                    <div className="mb-3">
-                        <label htmlFor="dataNascimento" className="form-label">Data de Nascimento</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            id="dataNascimento"
-                            name="dataNascimento"
-                            value={formData.dataNascimento}
-                            onChange={handleChange}
-                            disabled={enviando}
-                        />
-                    </div>
-                </div>
+                
             </div>
 
             <div className="mb-3">
@@ -136,13 +139,13 @@ const handleChange = (e) => {
             </div>
 
             <div className="mb-3">
-                <label htmlFor="bio" className="form-label">Biografia</label>
+                <label htmlFor="biografia" className="form-label">Biografia</label>
                 <textarea
                     className="form-control"
-                    id="bio"
-                    name="bio"
+                    id="biografia"
+                    name="biografia"
                     rows="4"
-                    value={formData.bio}
+                    value={formData.biografia}
                     onChange={handleChange}
                     disabled={enviando}
                     placeholder="Breve biografia do autor..."
