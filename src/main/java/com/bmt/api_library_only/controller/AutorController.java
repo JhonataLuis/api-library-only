@@ -52,5 +52,4 @@ public class AutorController {
             return ResponseEntity.badRequest().build(); // Retornar 400 Bad Request em caso de erro
         }
     }
-
 }

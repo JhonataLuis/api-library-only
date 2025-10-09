@@ -34,6 +34,13 @@ public class Livro {
     private Integer quantidadeTotal;
     private Integer quantidadeDisponivel;
 
+    @Column(length = 500)
+    private String imagemUrl;
+
+    // Campo para nome do arquivo da imagem (se fizer upload)
+    @Column(length = 255)
+    private String nomeImagem;
+
     // Relacionamento 1:N com Emprestimo
     @OneToMany(mappedBy = "livro", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<Emprestimo> emprestimos;
@@ -93,6 +100,22 @@ public class Livro {
 
     public Integer getQuantidadeDisponivel() {
         return quantidadeDisponivel;
+    }
+
+    public String getNomeImagem() {
+        return nomeImagem;
+    }
+
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
+    }
+
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
     }
 
     public void setEmprestimos(List<Emprestimo> emprestimos) {
