@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import com.bmt.api_library_only.repository.LivroRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +17,7 @@ import com.bmt.api_library_only.model.Livro;
 
 @Service
 @Transactional
-public class LivroServiceImpl {
+public class LivroServiceImpl implements LivroService{
 
     private final Logger logger = LoggerFactory.getLogger(LivroServiceImpl.class);
     private final LivroRepository livroRepository;
@@ -60,7 +59,6 @@ public class LivroServiceImpl {
         }
     }
 
-    @Override
     public Livro saveLivro(Livro livro){
         logger.info("Salvando novo livro: {}", livro.getTitulo());
 
@@ -113,5 +111,10 @@ public class LivroServiceImpl {
              logger.error("Erro ao salvar livro: {}", e.getMessage());
             throw new RuntimeException("Erro interno ao salvar livro: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void deleteLivro(Long id){
+        livroRepository.delete(id);// Ação para deletar um livro
     }
 }

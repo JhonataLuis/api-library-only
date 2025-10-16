@@ -42,4 +42,14 @@ public class AutorServiceImpl implements AutorService{
         return autorRepository.save(autor);
     }
 
+    @Override // Ação para atualizar as informações do autor cadastrado no sistema
+    public Autor updateAutor(Long id, Autor autor){
+
+    }
+
+    @Override // Ação para deletar um autor cadastrado no sistema
+    public Autor deleteAutor(Long id){
+        autorRepository.delete(id);
+    }
+
 }
