@@ -60,8 +60,14 @@ public class LivroServiceImpl implements LivroService{
         }
     }
 
+    @Override
     public Livro saveLivro(Livro livro){ // Ação para salvar um livro nos sistema, banco de dados
         logger.info("Salvando novo livro: {}", livro.getTitulo());
+
+        // Validar se o isbn já existe
+        if(livroRepository.existsByIsbn(livro.getIsbn())){
+            throw new RuntimeException("Já existe um livro com este ISBN: " + livro.getIsbn());
+        }
 
         try{
             // Validação: Campos obrigatórios
@@ -121,6 +127,11 @@ public class LivroServiceImpl implements LivroService{
         Livro book = livroRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado com ID :" + id));
 
+        // Verifica se o ISBN foi alterado e se já existe
+        if(!book.getIsbn().equals(livro.getIsbn()) && livroRepository.existsByIsbn(book.getIsbn())){
+            throw new RuntimeException("Já existe um livro com este ISBN: " + book.getIsbn());
+        }
+
         book.setTitulo(livro.getTitulo());
         book.setIsbn(livro.getIsbn());
         book.setAnoPublicacao(livro.getAnoPublicacao());
@@ -141,5 +152,11 @@ public class LivroServiceImpl implements LivroService{
         } catch (Exception e){
             throw new RuntimeException("Erro ao deletar um livro: " + e.getMessage());
         }
+    }
+
+    @Override
+    public boolean existsByIsbn(String isbn){
+        logger.info("Verificando se existe o ISBN repetido no banco: {} " + isbn);
+        return livroRepository.existsByIsbn(isbn);
     }
 }

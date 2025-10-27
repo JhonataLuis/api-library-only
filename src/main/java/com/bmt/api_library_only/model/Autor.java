@@ -3,6 +3,7 @@ package com.bmt.api_library_only.model;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,8 @@ public class Autor {
     private String email;
     private String telefone;
     private String nacionalidade;
+
+    @Column(length=2000) // Cadastra até 2000 caracteres
     private String biografia;
 
     // Relacionamento N:N com Livro
