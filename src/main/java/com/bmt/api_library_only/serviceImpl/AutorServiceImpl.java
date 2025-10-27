@@ -1,6 +1,7 @@
 package com.bmt.api_library_only.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,12 @@ public class AutorServiceImpl implements AutorService{
         return autores; // Retornar a lista de autores
     }
 
+    @Override
+    public Optional<Autor> getAutorId(Long id) {
+        logger.info("");
+        throw new UnsupportedOperationException("Unimplemented method 'getAutorId'");
+    }
+
     /**
      * Método para salvar um autor
      * @return Autor salvo
@@ -44,15 +51,15 @@ public class AutorServiceImpl implements AutorService{
 
     @Override
     public Autor updateAutor(Long id, Autor autor) {
-        // TODO Auto-generated method stub
+        logger.info("");
         throw new UnsupportedOperationException("Unimplemented method 'updateAutor'");
     }
 
     @Override
     public void deleteAutor(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAutor'");
+       
+        //Autor autor = autorRepository.delete(id);
     }
 
-
+    
 }
