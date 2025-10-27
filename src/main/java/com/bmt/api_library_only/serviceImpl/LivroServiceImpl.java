@@ -135,19 +135,37 @@ public class LivroServiceImpl implements LivroService{
         book.setTitulo(livro.getTitulo());
         book.setIsbn(livro.getIsbn());
         book.setAnoPublicacao(livro.getAnoPublicacao());
-        
-        livroRepository.save(book);
-        logger.info("Livro atualizado no banco de dados com ID: {}" +id);
+        book.setQuantidadeTotal(livro.getQuantidadeTotal());
+        book.setQuantidadeDisponivel(livro.getQuantidadeDisponivel());
+        book.setImagemUrl(livro.getImagemUrl());
+        book.setNomeImagem(livro.getNomeImagem());
 
-        return book;
+        if(livro.getAutores() != null){
+            book.setAutores(livro.getAutores());
+        }
+        
+        logger.info("Livro atualizado no banco de dados com ID: {}" +id);
+        return livroRepository.save(book);
+        
     }
 
     @Override
     public void deleteLivro(Long id){
-        
+        logger.info("Excluindo livro ... {}" + id);
+
         try{
 
-            //livroRepository.delete(id);
+        Livro book = livroRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Livro não encontrado com ID: " + id));
+        
+        // Verifica se há exemplares emprestados
+        if(book.getQuantidadeDisponivel() < book.getQuantidadeTotal()){
+            throw new RuntimeException("Não é possível excluir o livro. Existem exemplares emprestados.");
+        }
+
+        livroRepository.delete(book);
+        logger.info("Livro excluído com ID: {}", id);
+          
 
         } catch (Exception e){
             throw new RuntimeException("Erro ao deletar um livro: " + e.getMessage());
