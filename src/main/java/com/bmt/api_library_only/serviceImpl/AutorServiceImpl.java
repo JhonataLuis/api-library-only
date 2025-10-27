@@ -42,14 +42,17 @@ public class AutorServiceImpl implements AutorService{
         return autorRepository.save(autor);
     }
 
-    @Override // Ação para atualizar as informações do autor cadastrado no sistema
-    public Autor updateAutor(Long id, Autor autor){
-
+    @Override
+    public Autor updateAutor(Long id, Autor autor) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateAutor'");
     }
 
-    @Override // Ação para deletar um autor cadastrado no sistema
-    public Autor deleteAutor(Long id){
-        autorRepository.delete(id);
+    @Override
+    public void deleteAutor(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteAutor'");
     }
+
 
 }

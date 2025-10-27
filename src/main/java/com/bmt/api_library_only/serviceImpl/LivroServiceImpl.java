@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bmt.api_library_only.repository.LivroRepository;
+import com.bmt.api_library_only.service.LivroService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +29,8 @@ public class LivroServiceImpl implements LivroService{
     }
 
     @Transactional(readOnly = true)
-    public List<Livro> getAllLivros(){
-        logger.info("Buscando todos os livros");
+    public List<Livro> getAllLivros(){ // Busca lista de todos os livros
+        logger.info("Buscando todos os livros {} ...");
 
         try {
             List<Livro> livros = livroRepository.findAll();
@@ -42,7 +43,7 @@ public class LivroServiceImpl implements LivroService{
     }
 
     @Transactional(readOnly=true)
-    public Optional<Livro> getLivroById(Long id){
+    public Optional<Livro> getLivroById(Long id){ // Busca pelo id do livro selecionado
         logger.info("Buscando livro por ID: {}", id);
 
         try{
@@ -59,7 +60,7 @@ public class LivroServiceImpl implements LivroService{
         }
     }
 
-    public Livro saveLivro(Livro livro){
+    public Livro saveLivro(Livro livro){ // Ação para salvar um livro nos sistema, banco de dados
         logger.info("Salvando novo livro: {}", livro.getTitulo());
 
         try{
@@ -114,7 +115,31 @@ public class LivroServiceImpl implements LivroService{
     }
 
     @Override
+    public Livro updateLivro(Long id, Livro livro){// Ação para atualizar um livro
+        logger.info("Tentando atualizar o Livro no banco de dados: {}" + id);
+
+        Livro book = livroRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado com ID :" + id));
+
+        book.setTitulo(livro.getTitulo());
+        book.setIsbn(livro.getIsbn());
+        book.setAnoPublicacao(livro.getAnoPublicacao());
+        
+        livroRepository.save(book);
+        logger.info("Livro atualizado no banco de dados com ID: {}" +id);
+
+        return book;
+    }
+
+    @Override
     public void deleteLivro(Long id){
-        livroRepository.delete(id);// Ação para deletar um livro
+        
+        try{
+
+            //livroRepository.delete(id);
+
+        } catch (Exception e){
+            throw new RuntimeException("Erro ao deletar um livro: " + e.getMessage());
+        }
     }
 }
