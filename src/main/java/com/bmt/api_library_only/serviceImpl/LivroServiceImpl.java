@@ -75,6 +75,10 @@ public class LivroServiceImpl implements LivroService{
                 throw new RuntimeException("Título do livro é obrigatório");
             }
 
+            if(livro.getIsbn() == null || livro.getIsbn().trim().isEmpty()){
+                throw new RuntimeException("ISBN é obrigatório");
+            }
+
             // Inicializar quantidades se não informadas
             if(livro.getQuantidadeTotal() == null){
                 livro.setQuantidadeTotal(1);
