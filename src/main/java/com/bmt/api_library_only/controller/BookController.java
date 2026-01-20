@@ -33,14 +33,14 @@ public class BookController {
         this.livroService = livroService;
     }
 
-    @GetMapping
+    @GetMapping // Ação para listar livros
     public ResponseEntity<List<Livro>> listBooks(){
         List<Livro> books = livroService.getAllLivros();
         return ResponseEntity.ok(books);
         
     }
 
-    @PostMapping
+    @PostMapping // Ação para criar um novo livro
     public ResponseEntity<?> createdBook(/*@Valid*/ @RequestBody Livro livro){
 
         try{
@@ -58,7 +58,7 @@ public class BookController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // Ação para atualizar um novo livro
     public ResponseEntity<?> updateBook(@PathVariable Long id, @Valid @RequestBody Livro livro){
 
         try{
@@ -70,7 +70,7 @@ public class BookController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") // Ação para excluir um livro da base de dados
     public ResponseEntity<?> deleteBook(@PathVariable Long id){
 
         try {
